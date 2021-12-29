@@ -1,7 +1,7 @@
 {
-  "name": "simple-app",
+  "name": "mdvictor-loltimeline-datasource",
   "version": "1.0.0",
-  "description": "Grafana App Plugin Template",
+  "description": "Datasource plugin that plots match timeline data",
   "scripts": {
     "build": "grafana-toolkit plugin:build",
     "test": "grafana-toolkit plugin:test",
@@ -10,7 +10,7 @@
     "sign": "grafana-toolkit plugin:sign",
     "start": "yarn watch"
   },
-  "author": "Grafana Labs",
+  "author": "Victor Marin",
   "license": "Apache-2.0",
   "dependencies": {
     "@grafana/data": "8.1.3",
