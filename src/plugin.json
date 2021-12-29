@@ -1,0 +1,47 @@
+{
+  "$schema": "https://raw.githubusercontent.com/grafana/grafana/master/docs/sources/developers/plugins/plugin.schema.json",
+  "type": "datasource",
+  "name": "LoL User History",
+  "id": "lol-userhistory-datasource",
+  "backend": true,
+  "executable": "plugin_lolhistory",
+  "metrics": true,
+
+  "info": {
+    "description": "A datasource that lets you see a summoners' performance based on his match history",
+    "author": {
+      "name": "Victor Marin"
+    },
+    "keywords": ["panel", "template"],
+    "logos": {
+      "small": "img/logo.svg",
+      "large": "img/logo.svg"
+    },
+    "links": [
+      { "name": "Website", "url": "https://github.com/grafana/grafana-starter-app" },
+      { "name": "License", "url": "https://github.com/grafana/grafana-starter-app/blob/master/LICENSE" }
+    ],
+    "screenshots": [],
+    "version": "%VERSION%",
+    "updated": "%TODAY%"
+  },
+
+  "includes": [
+    {
+      "type": "dashboard",
+      "name": "Streaming Example",
+      "path": "dashboards/streaming.json"
+    },
+    {
+      "type": "dashboard",
+      "name": "Lots of Stats",
+      "path": "dashboards/stats.json"
+    }
+  ],
+
+  "dependencies": {
+    "grafanaDependency": ">=8.0.0",
+    "grafanaVersion": "8.0.0",
+    "plugins": []
+  }
+}
