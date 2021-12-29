@@ -12,7 +12,6 @@ interface PlayerSelectProps {
 }
 
 const TEAM1 = 100;
-const TEAM2 = 200;
 
 export function PlayerSelect(props: PlayerSelectProps) {
   const { value, onChange, label, datasource, matchId } = props;
