@@ -13,7 +13,7 @@ import (
 	"github.com/grafana/grafana-plugin-sdk-go/data/framestruct"
 )
 
-const FIVE_HOURS_IN_MILLISECONDS = 18000000
+const TWO_HOURS_IN_MILLISECONDS = 7.2e+6
 
 // QueryData handles multiple queries and returns multiple responses.
 // req contains the queries []DataQuery (where each query contains RefID as a unique identifier).
@@ -40,10 +40,10 @@ func (d *DataSource) QueryData(ctx context.Context, req *backend.QueryDataReques
 
 		var startTimestamp int64
 
-		if res.Info.Frames[0].Events[0].Type == "PAUSE_END" && !qm.NormalizeTimerange {
+		if res.Info.Frames[0].Events[0].Type == "PAUSE_END" && qm.UseMatchTimerange {
 			startTimestamp = res.Info.Frames[0].Events[0].RealTimestamp
 		} else {
-			startTimestamp = (time.Now().UnixNano() / int64(time.Millisecond)) - FIVE_HOURS_IN_MILLISECONDS
+			startTimestamp = (time.Now().UnixNano() / int64(time.Millisecond)) - TWO_HOURS_IN_MILLISECONDS
 		}
 
 		var participantIndex int

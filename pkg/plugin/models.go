@@ -18,13 +18,13 @@ type ConnectionSettings struct {
 }
 
 type queryModel struct {
-	MatchId            string `json:"matchID"`
-	Player             string `json:"player"`
-	TimelineData       string `json:"timelineData"`
-	RefID              string `json:"refId"`
-	NormalizeTimerange bool   `json:"normalizeTimerange"`
-	WithStreaming      bool   `json:"withStreaming"`
-	ChampionName       string `json:"championName"`
+	MatchId           string `json:"matchID"`
+	Player            string `json:"player"`
+	TimelineData      string `json:"timelineData"`
+	RefID             string `json:"refId"`
+	UseMatchTimerange bool   `json:"useMatchTimerange"`
+	WithStreaming     bool   `json:"withStreaming"`
+	ChampionName      string `json:"championName"`
 }
 
 type SettingsJsonData struct {

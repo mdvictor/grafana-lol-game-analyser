@@ -30,7 +30,7 @@ export const QueryEditor = (props: Props) => {
   const onSwitchChange = (element: FormEvent<HTMLInputElement>) => {
     onChange({
       ...query,
-      normalizeTimerange: !query.normalizeTimerange,
+      useMatchTimerange: !query.useMatchTimerange,
     });
 
     if (query.player && query.timelineData) {
@@ -85,8 +85,15 @@ export const QueryEditor = (props: Props) => {
           />
           <TimelineDataSelect label={'Timeline value'} onChange={onTimelineDataChange} value={query.timelineData} />
           <div className="gf-form">
-            <InlineFormLabel className="query-keyword">Normalize time range</InlineFormLabel>
-            <InlineSwitch css={undefined} value={query.normalizeTimerange} onChange={onSwitchChange} />
+            <InlineFormLabel
+              tooltip={
+                'The datasource sets the start of the match timeline to Now() - 2h. This switch changes the starting time to the original match time.'
+              }
+              className="query-keyword"
+            >
+              Use match time
+            </InlineFormLabel>
+            <InlineSwitch css={undefined} value={query.useMatchTimerange} onChange={onSwitchChange} />
           </div>
         </>
       )}

@@ -14,7 +14,7 @@ export interface LolQuery extends DataQuery {
   matchId: string;
   timelineData: string;
   player: string;
-  normalizeTimerange: boolean;
+  useMatchTimerange: boolean;
   championName: string;
 }
 

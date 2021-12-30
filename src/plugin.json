@@ -21,7 +21,11 @@
       { "name": "Website", "url": "https://github.com/mdvictor/lol-match-timeline" },
       { "name": "License", "url": "https://github.com/mdvictor/lol-match-timeline/blob/main/LICENSE" }
     ],
-    "screenshots": [],
+    "screenshots": [
+      {"name": "Match dashboard", "path": "img/dashboardExample.png" },
+      {"name": "Panel Editor", "path": "img/panelEditorExample.png" },
+      {"name": "Explore", "path": "img/exploreExample.png" }
+    ],
     "version": "%VERSION%",
     "updated": "%TODAY%"
   },
