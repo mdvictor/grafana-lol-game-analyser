@@ -23,23 +23,23 @@ export function MatchSelect(props: MatchSelectProps) {
         return;
       }
 
-      const promises = matches.map((matchId) => datasource.fetchMatchInfo(matchId));
+      const promises = matches.map((matchId) => datasource.fetchMatchSelfInfo(matchId));
 
-      Promise.all(promises).then((matchInfos) => {
+      Promise.all(promises).then((MatchParticipantsInfo) => {
         setOptions(
-          matchInfos.map((matchInfo: any) => {
+          MatchParticipantsInfo.map((matchParticipantInfo: any) => {
             return {
               label:
-                matchInfo.championName +
+                matchParticipantInfo.championName +
                 ' - ' +
-                matchInfo.individualPosition +
+                matchParticipantInfo.individualPosition +
                 ' - KDA: ' +
-                matchInfo.kills +
+                matchParticipantInfo.kills +
                 '/' +
-                matchInfo.deaths +
+                matchParticipantInfo.deaths +
                 '/' +
-                matchInfo.assists,
-              value: matchInfo.matchId,
+                matchParticipantInfo.assists,
+              value: matchParticipantInfo.matchId,
             };
           })
         );
@@ -47,5 +47,5 @@ export function MatchSelect(props: MatchSelectProps) {
     });
   }, [datasource, matchType]);
 
-  return <LolSelect label={label} value={value} onChange={onChange} options={options} width={35} />;
+  return <LolSelect label={label} value={value} onChange={onChange} options={options} width={50} />;
 }

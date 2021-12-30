@@ -29,6 +29,12 @@ export function PlayerSelect(props: PlayerSelectProps) {
             participant.championName +
             ' - ' +
             participant.individualPosition +
+            ' - KDA: ' +
+            participant.kills +
+            '/' +
+            participant.deaths +
+            '/' +
+            participant.assists +
             ' - Team ' +
             (participant.teamId === TEAM1 ? '1' : '2'),
           value: participant.puuid,
@@ -39,5 +45,5 @@ export function PlayerSelect(props: PlayerSelectProps) {
     });
   }, [datasource, matchId]);
 
-  return <LolSelect value={value} onChange={onChange} label={label} options={options} width={30} />;
+  return <LolSelect value={value} onChange={onChange} label={label} options={options} width={50} />;
 }

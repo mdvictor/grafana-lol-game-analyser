@@ -39,9 +39,12 @@ export const QueryEditor = (props: Props) => {
   };
 
   const onPlayerChange = (item: SelectableValue<string>) => {
+    const championName = item.label!.split(' - ')[0]!;
+
     onChange({
       ...query,
       player: item.value!,
+      championName: championName,
     });
 
     if (query.timelineData) {

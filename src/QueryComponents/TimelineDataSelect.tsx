@@ -45,5 +45,5 @@ export function TimelineDataSelect(props: TimelineDataProps) {
     setOptions(opts);
   }, []);
 
-  return <LolSelect value={value} onChange={onChange} label={label} options={options} width={30} />;
+  return <LolSelect value={value} onChange={onChange} label={label} options={options} width={50} />;
 }

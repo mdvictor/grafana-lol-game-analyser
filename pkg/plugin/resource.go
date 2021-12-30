@@ -14,7 +14,7 @@ import (
 
 func addRoutes(r *mux.Router, ds *DataSource) {
 	r.HandleFunc("/match/ids", ds.HandleGetMatchIds)
-	r.HandleFunc("/match/info", ds.HandleGetMatchInfo)
+	r.HandleFunc("/match/self-info", ds.HandleGetMatchSelfInfo)
 	r.HandleFunc("/match/participants", ds.HandleGetMatchParticipants)
 }
 
@@ -25,14 +25,14 @@ func (d *DataSource) CallResource(ctx context.Context, req *backend.CallResource
 func (d *DataSource) HandleGetMatchParticipants(w http.ResponseWriter, r *http.Request) {
 	matchId := r.URL.Query().Get("matchId")
 
-	matchInfo, err := d.client.fetchMatchParticipants(matchId)
+	matchParticipantsInfo, err := d.client.fetchMatchParticipants(matchId)
 
 	if err != nil {
 		writeResponse(w, nil, err)
 		return
 	}
 
-	writeResponse(w, matchInfo, nil)
+	writeResponse(w, matchParticipantsInfo, nil)
 }
 
 func (d *DataSource) HandleGetMatchIds(w http.ResponseWriter, r *http.Request) {
@@ -49,17 +49,17 @@ func (d *DataSource) HandleGetMatchIds(w http.ResponseWriter, r *http.Request) {
 	writeResponse(w, matches, nil)
 }
 
-func (d *DataSource) HandleGetMatchInfo(w http.ResponseWriter, r *http.Request) {
+func (d *DataSource) HandleGetMatchSelfInfo(w http.ResponseWriter, r *http.Request) {
 	matchId := r.URL.Query().Get("matchId")
 
-	matchInfo, err := d.client.fetchMatchInfo(matchId)
+	matchParticipantInfo, err := d.client.fetchMatchSelfInfo(matchId)
 
 	if err != nil {
 		writeResponse(w, nil, err)
 		return
 	}
 
-	writeResponse(w, matchInfo, nil)
+	writeResponse(w, matchParticipantInfo, nil)
 }
 
 func writeResponse(w http.ResponseWriter, value interface{}, err error) {

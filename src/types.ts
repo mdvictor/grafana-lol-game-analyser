@@ -15,27 +15,20 @@ export interface LolQuery extends DataQuery {
   timelineData: string;
   player: string;
   normalizeTimerange: boolean;
+  championName: string;
 }
 
-export interface MatchInfo {
+export interface MatchParticipantInfo {
   championName: string;
   puuid: string;
   summonerName: string;
-  teamId: string;
+  teamId: number;
   individualPosition: string;
   win: boolean;
   kills: number;
   deaths: number;
   assists: number;
   matchId: number;
-}
-
-export interface MatchParticipant {
-  puuid: string;
-  summonerName: string;
-  championName: string;
-  teamId: number;
-  individualPosition: string;
 }
 
 export const CHAMPIONS_STATS = 'CHAMPION_STATS';

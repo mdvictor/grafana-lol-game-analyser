@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"reflect"
 	"strings"
 	"time"
@@ -73,7 +74,8 @@ func (d *DataSource) QueryData(ctx context.Context, req *backend.QueryDataReques
 			values = append(values, dfValue)
 		}
 
-		frames, err := framestruct.ToDataFrames(qm.TimelineData, values)
+		name := fmt.Sprintf("%s(%s)", qm.ChampionName, qm.TimelineData)
+		frames, err := framestruct.ToDataFrames(name, values)
 
 		if err != nil {
 			response.Responses[q.RefID] = backend.DataResponse{Frames: nil, Error: err}

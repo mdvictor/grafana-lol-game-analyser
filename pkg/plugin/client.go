@@ -18,9 +18,9 @@ type Client interface {
 	setPuuid(puuid string)
 	getSummonerData() (SummonerData, error)
 	fetchMatchIds(queueType string, count string) ([]string, error)
-	fetchMatchInfo(matchId string) (MatchInfo, error)
+	fetchMatchSelfInfo(matchId string) (MatchParticipantInfo, error)
 	fetchTimeline(matchId string) (MatchTimeline, error)
-	fetchMatchParticipants(matchId string) ([]MatchParticipant, error)
+	fetchMatchParticipants(matchId string) ([]MatchParticipantInfo, error)
 }
 
 const (
@@ -109,29 +109,22 @@ func (c *LolClient) fetchData(path string, urlBit string, params string, v inter
 	return nil
 }
 
-func (c *LolClient) fetchMatchParticipants(matchId string) ([]MatchParticipant, error) {
+func (c *LolClient) fetchMatchParticipants(matchId string) ([]MatchParticipantInfo, error) {
 	res := &MatchJson{}
 
 	url := fmt.Sprintf("/lol/match/v5/matches/%s", matchId)
 	err := c.fetchData(url, strings.ToLower(c.Region), "", &res)
 
 	if err != nil {
-		return []MatchParticipant{}, errors.New("error returning match participant data")
+		return []MatchParticipantInfo{}, errors.New("error returning match participant data")
 	}
 
-	var matchParticipants []MatchParticipant
+	var matchParticipantsInfo []MatchParticipantInfo
 	for i := 0; i < len(res.Info.Participants); i++ {
-		participant := &MatchParticipant{}
-		participant.ChampionName = res.Info.Participants[i].ChampionName
-		participant.PUUID = res.Info.Participants[i].PUUID
-		participant.SummonerName = res.Info.Participants[i].SummonerName
-		participant.TeamId = res.Info.Participants[i].TeamId
-		participant.IndividualPosition = res.Info.Participants[i].IndividualPosition
-
-		matchParticipants = append(matchParticipants, *participant)
+		matchParticipantsInfo = append(matchParticipantsInfo, res.Info.Participants[i])
 	}
 
-	return matchParticipants, nil
+	return matchParticipantsInfo, nil
 }
 
 func (c *LolClient) fetchTimeline(matchId string) (MatchTimeline, error) {
@@ -163,14 +156,14 @@ func (c *LolClient) fetchMatchIds(queueType string, count string) ([]string, err
 	return res, nil
 }
 
-func (c *LolClient) fetchMatchInfo(matchId string) (MatchInfo, error) {
+func (c *LolClient) fetchMatchSelfInfo(matchId string) (MatchParticipantInfo, error) {
 	res := &MatchJson{}
 
 	url := fmt.Sprintf("/lol/match/v5/matches/%s", matchId)
 	err := c.fetchData(url, strings.ToLower(c.Region), "", &res)
 
 	if err != nil {
-		return MatchInfo{}, errors.New("error returning match data")
+		return MatchParticipantInfo{}, errors.New("error returning match data")
 	}
 
 	index := -1
@@ -182,7 +175,7 @@ func (c *LolClient) fetchMatchInfo(matchId string) (MatchInfo, error) {
 	}
 
 	if index == -1 {
-		return MatchInfo{}, errors.New("puuid did not match with any participants")
+		return MatchParticipantInfo{}, errors.New("puuid did not match with any participants")
 	}
 
 	res.Info.Participants[index].MatchId = matchId
@@ -197,27 +190,6 @@ func (c *LolClient) get(path string, urlBit string, params string) (*http.Respon
 	}
 	return http.Get(endpoint)
 }
-
-// func (c *LolClient) post(path string, params string, body io.Reader) (*http.Response, error) {
-// 	http, endpoint, err := c.getHttpClient(path, params)
-// 	if err != nil {
-// 		return nil, err
-// 	}
-// 	return http.Post(endpoint, "application/json", body)
-// }
-
-// func (c *LolClient) delete(path string, params string) (*http.Response, error) {
-// 	httpClient, endpoint, err := c.getHttpClient(path, params)
-// 	if err != nil {
-// 		return nil, err
-// 	}
-
-// 	req, err := http.NewRequest("DELETE", endpoint, nil)
-// 	if err != nil {
-// 		return nil, err
-// 	}
-// 	return httpClient.Do(req)
-// }
 
 func (c *LolClient) getHttpClient(path string, urlBit string, params string) (*http.Client, string, error) {
 	http, err := httpclient.New(httpclient.Options{

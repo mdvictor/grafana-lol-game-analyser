@@ -24,6 +24,7 @@ type queryModel struct {
 	RefID              string `json:"refId"`
 	NormalizeTimerange bool   `json:"normalizeTimerange"`
 	WithStreaming      bool   `json:"withStreaming"`
+	ChampionName       string `json:"championName"`
 }
 
 type SettingsJsonData struct {
@@ -51,11 +52,11 @@ type MatchJson struct {
 		Participants []string `json:"participants"`
 	} `json:"metadata"`
 	Info struct {
-		Participants []MatchInfo `json:"participants"`
+		Participants []MatchParticipantInfo `json:"participants"`
 	}
 }
 
-type MatchInfo struct {
+type MatchParticipantInfo struct {
 	ChampionName       string `json:"championName"`
 	PUUID              string `json:"puuid"`
 	SummonerName       string `json:"summonerName"`
@@ -146,12 +147,4 @@ type MatchTimeline struct {
 type TimeLineDataFrameValues struct {
 	Timestamp time.Time `json:"timestamp"`
 	Value     float64   `json:"value"`
-}
-
-type MatchParticipant struct {
-	PUUID              string `json:"puuid"`
-	SummonerName       string `json:"summonerName"`
-	ChampionName       string `json:"championName"`
-	IndividualPosition string `json:"individualPosition"`
-	TeamId             int    `json:"teamId"`
 }

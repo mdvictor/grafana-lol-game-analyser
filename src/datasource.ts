@@ -1,6 +1,6 @@
 import { DataSourceInstanceSettings } from '@grafana/data';
 import { DataSourceWithBackend } from '@grafana/runtime';
-import { LolCloudDataSourceOptions, LolQuery, MatchInfo, MatchParticipant } from 'types';
+import { LolCloudDataSourceOptions, LolQuery, MatchParticipantInfo } from 'types';
 
 export class LolDataSource extends DataSourceWithBackend<LolQuery, LolCloudDataSourceOptions> {
   constructor(instanceSettings: DataSourceInstanceSettings<LolCloudDataSourceOptions>) {
@@ -11,11 +11,11 @@ export class LolDataSource extends DataSourceWithBackend<LolQuery, LolCloudDataS
     return this.getResource('match/ids', { type, no });
   }
 
-  fetchMatchInfo(matchId: string): Promise<MatchInfo> {
-    return this.getResource('match/info', { matchId });
+  fetchMatchSelfInfo(matchId: string): Promise<MatchParticipantInfo> {
+    return this.getResource('match/self-info', { matchId });
   }
 
-  fetchMatchParticipants(matchId: string): Promise<MatchParticipant[]> {
+  fetchMatchParticipants(matchId: string): Promise<MatchParticipantInfo[]> {
     return this.getResource('match/participants', { matchId });
   }
 }
